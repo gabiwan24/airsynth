@@ -4,15 +4,15 @@ OWNS: **
 
 Scope: Static web app: both index fingertips set the beat (distance → tempo, height → root note, tilt → groove, midpoint → swing), the other 8 fingers continuously modulate the synth sound; scaffold, docs, start.bat, pushed to gabiwan24/airsynth with GitHub Pages.
 
-- [ ] G1: Gesture mapping, quantizer hysteresis, groove patterns and finger curl pass their unit tests
+- [x] G1: Gesture mapping, quantizer hysteresis, groove patterns and finger curl pass their unit tests
   CHECK: node --test tests/mapping.test.mjs tests/sequencer.test.mjs tests/gesture.test.mjs
   EXPECT: # fail 0
-  EVIDENCE: pending
+  EVIDENCE: exit=0; shell=C:\WINDOWS\system32\cmd.exe; cwd=C:\Users\Gabriel Weiss\Documents\Claude_Vibecoding\airsynth; path=1766bf1cac83/47 entries; output=# todo 0 | # duration_ms 148.2388
 
-- [ ] G2: find-port.ps1 prints a free port from 8100
+- [x] G2: find-port.ps1 prints a free port from 8100
   CHECK: powershell -NoProfile -ExecutionPolicy Bypass -File scripts/find-port.ps1 8100
   EXPECT: 81
-  EVIDENCE: pending
+  EVIDENCE: exit=0; shell=C:\WINDOWS\system32\cmd.exe; cwd=C:\Users\Gabriel Weiss\Documents\Claude_Vibecoding\airsynth; path=1766bf1cac83/47 entries; output=8100
 
 - [x] G3: Page served on localhost loads without console errors; MediaPipe HandLandmarker initialises
   EVIDENCE: Browser pane http://localhost:8100: console shows only MediaPipe GL info logs ("Graph successfully started running"), no errors; camera NotAllowedError on Start is the expected pane block and is shown as a hint
