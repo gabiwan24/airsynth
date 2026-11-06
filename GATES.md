@@ -23,10 +23,10 @@ Scope: Static web app: both index fingertips set the beat (distance → tempo, h
 - [x] G5: Design audit (audit.js runAudit) reports zero violations in light and dark
   EVIDENCE: runAudit("body"): light 0; dark 1 = R9 "1.6:button" on the active .seg – known false positive (audit ignores .sel-marker under the text); measured marker rgb(251,255,0) under text rgb(0,0,0) = 19.4:1. Earlier R4 (.meter i 120ms) fixed with var(--dur-fast)
 
-- [ ] G6: GitHub Pages for gabiwan24/airsynth is built from main
+- [x] G6: GitHub Pages for gabiwan24/airsynth is built from main
   CHECK: gh api repos/gabiwan24/airsynth/pages --jq .status
   EXPECT: built
-  EVIDENCE: pending
+  EVIDENCE: exit=0; shell=C:\WINDOWS\system32\cmd.exe; cwd=C:\Users\Gabriel Weiss\Documents\Claude_Vibecoding\airsynth; path=1766bf1cac83/47 entries; output=built
 
 - [ ] G7: Real webcam: index fingers set the beat, other fingers audibly modulate
   EVIDENCE: pending
