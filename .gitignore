@@ -1,0 +1,9 @@
+node_modules/
+dist/
+build/
+.env*
+CLAUDE.local.md
+.claude/settings.local.json
+.unlazy/
+.unlazy-hook-state.json
+__pycache__/

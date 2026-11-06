@@ -1,0 +1,94 @@
+/* Component styles. Needs tokens.css. Buttons, check/switch, segmented control, tabs, card, badge, table, menu, tooltip, backdrop/modal/drawer, toast, skeleton.
+   Spacing, sizes of controls, colors, radius and durations come from tokens; hairlines (1–2px) and glyph geometry are the only literals. */
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);height:var(--control-h-md);padding:0 var(--space-4);border-radius:var(--radius-btn);border:1px solid transparent;font-size:var(--text-base);font-weight:var(--weight-medium);cursor:pointer;white-space:nowrap;background:none;transition:background-color var(--dur-fast) var(--ease-out),color var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out),transform var(--dur-fast) var(--ease-out),opacity var(--dur-fast) var(--ease-out)}
+.btn:active:not(:disabled){transform:scale(.98)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.sm{height:var(--control-h-sm);padding:0 var(--space-3);font-size:var(--text-sm)}
+.btn.lg{height:var(--control-h-lg);padding:0 var(--space-5)}
+.btn.primary{background:var(--btn-primary-bg);color:var(--btn-primary-fg);border-color:var(--cta)}   /* call to action = blue fill, edge = fill */
+.btn.primary:hover:not(:disabled){background:var(--cta-hover);border-color:var(--cta-hover)}   /* hover: deeper blue (lighter on dark), the edge follows = no visible frame */
+.btn.secondary{border-color:var(--border-strong)}
+.btn.secondary:hover:not(:disabled){background:var(--surface-2)}
+.btn.ghost{color:var(--text-muted)}
+.btn.ghost:hover:not(:disabled){background:var(--surface-2);color:var(--text)}
+.btn.danger{border-color:var(--danger);color:var(--danger)}
+.btn.danger:hover:not(:disabled){background:var(--danger-soft)}
+.btn.icon{width:var(--control-h-md);padding:0}
+.btn.icon.sm{width:var(--control-h-sm)}.btn.icon.lg{width:var(--control-h-lg)}
+.spinner{width:14px;height:14px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:spin var(--dur-spin) linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* Inputs */
+.check{display:inline-flex;align-items:center;gap:var(--space-2);cursor:pointer;user-select:none}
+.check input{appearance:none;width:16px;height:16px;margin:0;border:1px solid var(--border-strong);background:var(--surface);display:grid;place-content:center;transition:background-color var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out);cursor:pointer}
+.check input:checked{background:var(--accent);border-color:var(--accent-edge)}
+.check:not(.switch) input:checked::after{content:"";width:8px;height:4px;border-left:2px solid var(--accent-ink);border-bottom:2px solid var(--accent-ink);transform:translateY(-1px) rotate(-45deg)}
+.switch input{width:32px;height:18px;border-radius:var(--radius-full);position:relative}
+.switch input::after{content:"";position:absolute;left:2px;top:2px;width:12px;height:12px;border:0;background:var(--text-muted);transform:none;transition:transform var(--dur-base) var(--ease-fluid),background-color var(--dur-fast) var(--ease-out)}
+.switch input:checked::after{transform:translateX(14px);background:var(--accent-ink)}
+.seg{position:relative;display:inline-flex;padding:var(--space-half);background:var(--surface-2);border-radius:var(--radius-btn)}
+.seg button{position:relative;z-index:1;height:var(--control-h-sm);padding:0 var(--space-4);border:0;background:none;color:var(--text-muted);cursor:pointer;border-radius:var(--radius-sm);transition:color var(--dur-fast) var(--ease-out)}
+.seg button[aria-checked="true"]{color:var(--accent-ink)}   /* active = yellow signal pill (never black vs. white: unclear which is active) */
+.seg .pill{position:absolute;top:var(--space-half);bottom:var(--space-half);left:0;background:var(--accent);border:1px solid var(--accent-edge);border-radius:var(--radius-btn);transition:transform var(--dur-view) var(--ease-fluid),width var(--dur-view) var(--ease-fluid)}
+.tab{border:0;background:none;padding:var(--space-2) 0;color:var(--text-muted);cursor:pointer;transition:color var(--dur-fast) var(--ease-out)}
+.tab:hover{color:var(--text)}
+.tab{box-shadow:inset 0 calc(var(--space-half) * -1) 0 transparent}   /* selection = color + 2px underline, never a weight change */
+.tab.on{color:var(--text);box-shadow:inset 0 calc(var(--space-half) * -1) 0 var(--accent-edge)}
+/* Cards, badges, table */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-2);transition:box-shadow var(--dur-base) var(--ease-out)}
+.card.interactive:hover{box-shadow:var(--shadow-sm)}
+.badge{display:inline-flex;align-items:center;gap:var(--space-1-5);height:20px;padding:0 var(--space-2);border-radius:var(--radius-full);background:var(--surface-2);font-size:var(--text-xs)}
+.badge.live{background:var(--accent-soft);color:var(--accent-text)}
+.badge.live::before{content:"";width:6px;height:6px;background:var(--accent);box-shadow:0 0 0 1px var(--accent-edge)}
+table{width:100%;border-collapse:collapse;font-size:var(--text-base)}
+th{font-weight:var(--weight-medium);text-align:left;color:var(--text-muted);font-size:var(--text-sm)}
+th,td{height:40px;padding:0 var(--space-3);border-bottom:1px solid var(--border)}
+tbody tr{transition:background-color var(--dur-fast) var(--ease-out)}
+tbody tr:hover{background:var(--surface-2)}
+td.num,th.num{text-align:right;font-family:var(--font-mono)}
+/* Overlays */
+.menu{position:fixed;z-index:30;min-width:200px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);box-shadow:var(--shadow-md);padding:var(--space-1);transform-origin:top left;animation:pop var(--dur-base) var(--ease-out) both}
+.menu.closing{animation:popout var(--dur-fast) var(--ease-out) both}
+@keyframes pop{from{opacity:0;transform:scale(.97) translateY(-4px)}}
+@keyframes popout{to{opacity:0;transform:scale(.97) translateY(-4px)}}
+.menu [role=menuitem]{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);width:100%;height:32px;padding:0 var(--space-2);border:0;background:none;border-radius:var(--radius-sm);text-align:left;cursor:pointer}
+.menu [role=menuitem]:hover,.menu [role=menuitem]:focus-visible{background:var(--surface-2);outline:none}
+.menu [role=menuitem].danger{color:var(--danger)}
+.menu kbd{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--text-muted)}
+.menu hr{border:0;border-top:1px solid var(--border);margin:var(--space-1) 0}
+.tooltip{position:fixed;z-index:40;pointer-events:none;background:var(--text);color:var(--bg);font-size:var(--text-xs);padding:var(--space-1) var(--space-2);border-radius:var(--radius-sm);max-width:240px;opacity:0;transition:opacity var(--dur-fast) var(--ease-out)}
+.tooltip.show{opacity:1}
+.backdrop{position:fixed;inset:0;z-index:20;background:var(--scrim);display:grid;place-items:center;padding:var(--space-4);animation:fade var(--dur-view) var(--ease-fluid) both}
+.backdrop.closing{animation:fade var(--dur-view) var(--ease-fluid) reverse both}
+@keyframes fade{from{opacity:0}}
+.modal{width:min(480px,100%);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-4);animation:modal-in var(--dur-view) var(--ease-fluid) both}
+@keyframes modal-in{from{opacity:0;transform:scale(.98)}}   /* modal fades in place – content never slides up from below */
+.modal-actions{display:flex;justify-content:flex-end;gap:var(--space-2)}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(360px,100%);z-index:21;background:var(--surface);border-left:1px solid var(--border);box-shadow:var(--shadow-md);padding:var(--space-6);display:flex;flex-direction:column;gap:var(--space-4);animation:drawer-in var(--dur-view) var(--ease-fluid) both}
+.drawer.closing{animation:drawer-in var(--dur-view) var(--ease-fluid) reverse both}
+@keyframes drawer-in{from{transform:translateX(100%)}}
+.toasts{position:fixed;right:var(--space-4);bottom:var(--space-4);z-index:50;display:flex;flex-direction:column;gap:var(--space-2);align-items:flex-end}
+.toast{position:relative;min-width:240px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);box-shadow:var(--shadow-md);padding:var(--space-3) var(--space-4) var(--space-3) var(--space-5);animation:toast-in var(--dur-view) var(--ease-fluid) both}
+.toast::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--bar,var(--accent));box-shadow:0 0 0 1px var(--bar-edge,transparent)}
+.toast.closing{animation:toast-in var(--dur-view) var(--ease-fluid) reverse both}
+@keyframes toast-in{from{opacity:0;transform:translateX(16px)}}
+.skeleton{background:linear-gradient(90deg,var(--surface-2) 25%,var(--border) 50%,var(--surface-2) 75%);background-size:200% 100%;animation:shimmer var(--dur-shimmer) linear infinite;border-radius:var(--radius-sm)}
+@keyframes shimmer{to{background-position:-200% 0}}
+/* Button loading state: label and "loading" content share one grid cell → width never changes (add data-loading to the button) */
+.btn .swap > .loading{visibility:hidden;display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2)}
+.btn[data-loading] .swap > .loading{visibility:visible}
+.btn[data-loading] .swap > :not(.loading){visibility:hidden}
+.btn[data-loading]:disabled{opacity:1}
+/* Sliding selection marker (motion.js slideMarker): shape/colour come from the component, motion from here. */
+.sel-marker{position:absolute;left:0;top:0;visibility:hidden;pointer-events:none;transition:transform var(--dur-base) var(--ease-out),width var(--dur-base) var(--ease-out),height var(--dur-base) var(--ease-out)}   /* short UI motion: snappy, never 90/80 */
+.sel-marker.placed{visibility:visible}
+.sel-marker.no-anim{transition:none}
+/* Option rows (components.md "Option rows share one grid"): label + control rows above each other share ONE
+   label column (as wide as the longest label) and ONE control column, so all controls have the same edges.
+   Put .opt-rows on the parent grid, .opt-row on each row (subgrid keeps rows real boxes: animateLayout works). */
+.opt-rows{display:grid;grid-template-columns:max-content minmax(0,1fr);column-gap:var(--space-4)}
+.opt-rows>*{grid-column:1/-1}
+.opt-row{display:grid;grid-template-columns:subgrid;align-items:center}
+.opt-row>.seg,.opt-row>.segmented{min-width:0;width:100%}   /* equal-width segments: flex:1 1 0; min-width:0 */
+.opt-control-end{display:flex;align-items:center;justify-content:flex-end;gap:var(--space-2);min-width:0}   /* a lone switch/stepper sits at the right edge */
+

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Air Synth</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://storage.googleapis.com" crossorigin>
+  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@1.1.1/vision_bundle.mjs" crossorigin>
+  <link rel="stylesheet" href="src/styles/tokens.css">
+  <link rel="stylesheet" href="src/styles/components.css">
+  <link rel="stylesheet" href="src/styles/app.css">
+  <script type="module" src="src/main.js"></script>
+</head>
+<body>
+  <header class="bar">
+    <h1 class="title">Air Synth</h1>
+    <span class="badge" id="status">Bereit</span>
+    <span class="badge stopped" id="transport" title="Leertaste startet / stoppt den Beat">Gestoppt</span>
+    <dl class="hud tnum" aria-label="Leistung">
+      <div><dt>Kamera</dt><dd id="hud-fps">–</dd></div>
+      <div><dt>Erkennung</dt><dd id="hud-detect">–</dd></div>
+      <div><dt>Audio</dt><dd id="hud-audio">–</dd></div>
+    </dl>
+  </header>
+
+  <main class="layout">
+    <section class="stage" aria-label="Kamera">
+      <video id="video" playsinline muted></video>
+      <canvas id="overlay" width="640" height="480"></canvas>
+      <div class="readout" aria-live="off">
+        <div class="bpm tnum"><span id="bpm">120</span><span class="unit">BPM</span></div>
+        <div class="readout-sub"><span id="root-name">A2</span><span id="groove-name">House</span><span id="swing-val" class="tnum">Swing 0 %</span></div>
+        <ol class="steps" id="steps" aria-hidden="true"></ol>
+      </div>
+      <p class="stage-hint" id="stage-hint">Beide Zeigefinger zeigen, um den Beat zu steuern</p>
+      <div class="start" id="start">
+        <button class="btn primary cta" id="start-btn" type="button">
+          <span class="swap"><span>Kamera &amp; Ton starten</span><span class="loading"><span class="spinner"></span>Lädt …</span></span>
+        </button>
+        <p class="start-hint" id="start-hint">Ohne Kamera läuft der Beat mit festen Werten. Leertaste = Start / Stopp.</p>
+      </div>
+    </section>
+
+    <aside class="panel scroll" aria-label="Steuerung und Einstellungen">
+      <section class="block">
+        <h2 class="block-title">Beat · beide Zeigefinger</h2>
+        <dl class="map" id="beat-map">
+          <div><dt>Abstand</dt><dd>Tempo</dd><dd class="val tnum" id="v-bpm">120 BPM</dd></div>
+          <div><dt>Höhe</dt><dd>Grundton</dd><dd class="val tnum" id="v-root">A2</dd></div>
+          <div><dt>Neigung</dt><dd>Groove</dd><dd class="val" id="v-groove">House</dd></div>
+          <div><dt>Position</dt><dd>Swing</dd><dd class="val tnum" id="v-swing">0 %</dd></div>
+        </dl>
+      </section>
+
+      <section class="block">
+        <h2 class="block-title">Klang · übrige Finger</h2>
+        <div class="hands">
+          <div><h3 class="hand-title">Rechte Hand</h3><dl class="map mods" id="mods-right"></dl></div>
+          <div><h3 class="hand-title">Linke Hand</h3><dl class="map mods" id="mods-left"></dl></div>
+        </div>
+        <p class="hint">Finger eingeklappt = 0, gestreckt = voll. Ohne Hand bleibt der letzte Klang stehen.</p>
+      </section>
+
+      <div class="opt-rows">
+        <div class="opt-row key-row">
+          <span class="opt-label">Tonart</span>
+          <div class="keys" id="keys" role="radiogroup" aria-label="Tonart"></div>
+        </div>
+        <div class="opt-row">
+          <span class="opt-label">Tonleiter</span>
+          <div class="seg" role="radiogroup" data-setting="scale">
+            <span class="sel-marker"></span>
+            <button type="button" role="radio" data-value="minpenta">Moll</button>
+            <button type="button" role="radio" data-value="majpenta">Dur</button>
+            <button type="button" role="radio" data-value="dorian">Dorisch</button>
+            <button type="button" role="radio" data-value="phrygian">Phryg.</button>
+          </div>
+        </div>
+        <div class="opt-row">
+          <span class="opt-label">Klang</span>
+          <div class="seg" role="radiogroup" data-setting="sound">
+            <span class="sel-marker"></span>
+            <button type="button" role="radio" data-value="saw">Saw</button>
+            <button type="button" role="radio" data-value="square">Square</button>
+            <button type="button" role="radio" data-value="acid">Acid</button>
+            <button type="button" role="radio" data-value="soft">Soft</button>
+          </div>
+        </div>
+        <div class="opt-row">
+          <span class="opt-label">Glättung</span>
+          <div class="seg" role="radiogroup" data-setting="smooth">
+            <span class="sel-marker"></span>
+            <button type="button" role="radio" data-value="1">Direkt</button>
+            <button type="button" role="radio" data-value="0.5">Normal</button>
+            <button type="button" role="radio" data-value="0.25">Ruhig</button>
+          </div>
+        </div>
+        <div class="opt-row">
+          <span class="opt-label">Drums</span>
+          <div class="opt-control-end">
+            <span class="hint">Kick, Snare, Hi-Hat</span>
+            <label class="check switch"><input type="checkbox" id="drums" checked><span class="sr-only">Drums</span></label>
+          </div>
+        </div>
+      </div>
+      <p class="hint">Leertaste = Beat starten / stoppen.</p>
+    </aside>
+  </main>
+</body>
+</html>
